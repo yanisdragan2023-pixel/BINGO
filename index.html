@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bingo în predicare — Milwaukee 2026</title>
+<meta name="description" content="Joc Bingo 5×5 pentru serviciul de teren, inspirat de congresul Milwaukee 2026. Funcționează offline, ca aplicație instalabilă.">
+<meta name="theme-color" content="#EFF5F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#10202A" media="(prefers-color-scheme: dark)">
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/favicon.ico" sizes="any">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bingo predicare">
+
+<!-- Open Graph / previzualizare la distribuirea link-ului -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bingo în predicare — Milwaukee 2026">
+<meta property="og:description" content="Joc Bingo 5×5 pentru serviciul de teren, inspirat de congresul Milwaukee 2026. Funcționează offline.">
+<meta property="og:image" content="icons/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bingo în predicare — Milwaukee 2026">
+<meta name="twitter:description" content="Joc Bingo 5×5 pentru serviciul de teren, inspirat de congresul Milwaukee 2026.">
+<meta name="twitter:image" content="icons/og-image.png">
+<!-- IMPORTANT: după publicare pe GitHub Pages, înlocuiește og:image și
+     twitter:image cu adresa COMPLETĂ (https://utilizator.github.io/...),
+     altfel unele aplicații (WhatsApp, Facebook) nu vor afișa imaginea. -->
+
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-theme="light">
+
+<a class="skip-link" href="#main-content">Sari la conținut</a>
+
+<header class="app-header">
+  <div class="app-header__brand">
+    <span class="app-header__badge" aria-hidden="true">B</span>
+    <div class="app-header__titles">
+      <h1 class="app-header__title">Bingo în predicare</h1>
+      <p class="app-header__subtitle">Milwaukee 2026 · joc pentru serviciul de teren</p>
+    </div>
+  </div>
+
+  <nav class="app-header__tabs" role="tablist" aria-label="Secțiuni aplicație">
+    <button class="tab-btn is-active" id="tab-game" role="tab" aria-selected="true" aria-controls="game-view">
+      Card
+    </button>
+    <button class="tab-btn" id="tab-experiences" role="tab" aria-selected="false" aria-controls="experiences-view">
+      Experiențe
+    </button>
+  </nav>
+
+  <button class="icon-btn" id="btn-settings" type="button" aria-haspopup="dialog" aria-controls="settings-modal" title="Setări" aria-label="Deschide setările">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm8.94 2.5a7.8 7.8 0 000-2l2.06-1.6a.5.5 0 00.12-.64l-2-3.46a.5.5 0 00-.6-.22l-2.43.98a7.7 7.7 0 00-1.73-1l-.37-2.58a.5.5 0 00-.5-.43h-4a.5.5 0 00-.5.43l-.37 2.58c-.63.24-1.2.58-1.73 1l-2.43-.98a.5.5 0 00-.6.22l-2 3.46a.5.5 0 00.12.64L4.06 9a7.8 7.8 0 000 2l-2.06 1.6a.5.5 0 00-.12.64l2 3.46c.13.22.4.31.6.22l2.43-.98c.53.42 1.1.76 1.73 1l.37 2.58c.05.25.26.43.5.43h4c.24 0 .45-.18.5-.43l.37-2.58c.63-.24 1.2-.58 1.73-1l2.43.98c.22.09.47 0 .6-.22l2-3.46a.5.5 0 00-.12-.64L20.94 11z" fill="currentColor"/></svg>
+  </button>
+</header>
+
+<main id="main-content">
+
+  <!-- ===================== GAME VIEW ===================== -->
+  <section id="game-view" role="tabpanel" aria-labelledby="tab-game">
+
+    <div class="path-tracker" aria-hidden="true">
+      <div class="path-tracker__line">
+        <div class="path-tracker__fill" id="path-fill"></div>
+      </div>
+      <div class="path-tracker__foot" id="path-foot">👣</div>
+    </div>
+    <p class="path-tracker__label">
+      <span id="marked-count">0</span> din 24 pătrate bifate
+      <span id="lines-count-wrap" class="path-tracker__lines" hidden>· <span id="lines-count-text">0 linii complete</span></span>
+    </p>
+
+    <div class="bingo-letters" aria-hidden="true">
+      <span>B</span><span>I</span><span>N</span><span>G</span><span>O</span>
+    </div>
+
+    <div class="bingo-grid" id="bingo-grid" role="group" aria-label="Card de bingo 5 pe 5">
+      <!-- 25 tiles injected by JS -->
+    </div>
+
+    <div class="game-actions">
+      <button class="btn btn--ghost" id="btn-new-card" type="button">Card nou</button>
+      <button class="btn btn--ghost" id="btn-reset-progress" type="button">Repornește bifele</button>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCES VIEW ===================== -->
+  <section id="experiences-view" role="tabpanel" aria-labelledby="tab-experiences" hidden>
+    <div class="experiences-intro">
+      <h2>Povestește-ne despre experiențele tale!</h2>
+      <p>Scrie despre experiențele frumoase pe care le-ai avut astăzi în predicare. Ne-ar face plăcere să aflăm cum ți-a binecuvântat Iehova serviciul!</p>
+    </div>
+
+    <form id="experience-form" class="experience-form">
+      <label for="experience-text" class="visually-hidden">Scrie o experiență</label>
+      <textarea id="experience-text" rows="4" placeholder="Astăzi în teritoriu..." required></textarea>
+      <button class="btn btn--primary" type="submit">Salvează experiența</button>
+    </form>
+
+    <ul class="experience-list" id="experience-list" aria-live="polite">
+      <!-- experience entries injected by JS -->
+    </ul>
+    <p class="experience-empty" id="experience-empty">Nu ai salvat încă nicio experiență.</p>
+  </section>
+
+</main>
+
+<!-- ===================== WIN BANNER ===================== -->
+<div class="win-banner" id="win-banner" role="alertdialog" aria-live="assertive" aria-labelledby="win-banner-title" hidden>
+  <div class="win-banner__card">
+    <p class="win-banner__emoji" aria-hidden="true">🎉</p>
+    <h2 id="win-banner-title">BINGO!</h2>
+    <p id="win-banner-text">Ai completat o linie pe card.</p>
+    <button class="btn btn--primary" id="btn-close-win" type="button">Continuă predicarea</button>
+  </div>
+</div>
+
+<!-- ===================== SETTINGS MODAL ===================== -->
+<div class="modal" id="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+  <div class="modal__backdrop" id="settings-backdrop"></div>
+  <div class="modal__card">
+    <div class="modal__header">
+      <h2 id="settings-title">Setări</h2>
+      <button class="icon-btn" id="btn-close-settings" type="button" aria-label="Închide setările">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="modal__body">
+      <fieldset class="setting-row">
+        <legend>Temă</legend>
+        <div class="segmented" id="theme-segmented" role="radiogroup" aria-label="Alege tema">
+          <button type="button" class="segmented__btn" data-theme-choice="light" role="radio" aria-checked="false">Luminoasă</button>
+          <button type="button" class="segmented__btn" data-theme-choice="dark" role="radio" aria-checked="false">Întunecată</button>
+          <button type="button" class="segmented__btn" data-theme-choice="system" role="radio" aria-checked="false">Automată</button>
+        </div>
+      </fieldset>
+
+      <div class="setting-row setting-row--switch">
+        <label for="sound-toggle">Sunete în aplicație</label>
+        <button class="switch" id="sound-toggle" type="button" role="switch" aria-checked="true">
+          <span class="switch__knob"></span>
+        </button>
+      </div>
+
+      <div class="setting-row setting-row--switch">
+        <label for="announce-toggle">Bifare cu confirmare vocală (screen reader)</label>
+        <button class="switch" id="announce-toggle" type="button" role="switch" aria-checked="true">
+          <span class="switch__knob"></span>
+        </button>
+      </div>
+
+      <div class="setting-row">
+        <button class="btn btn--ghost" id="btn-install-app" type="button" hidden>
+          ⬇️ Instalează aplicația pe ecranul principal
+        </button>
+      </div>
+
+      <details class="help-disclosure" id="help-disclosure">
+        <summary>❓ Cum se folosește aplicația</summary>
+        <div class="help-disclosure__body">
+          <h3>Cardul de bingo</h3>
+          <p>Apasă pe o căsuță de fiecare dată când ți se întâmplă ceva de pe card, în timpul predicării. Căsuța „SPAȚIU LIBER" e bifată automat. Aplicația detectează singură rândurile, coloanele și diagonalele complete și te anunță cu un mesaj „BINGO!".</p>
+
+          <h3>Card nou / Repornește bifele</h3>
+          <p><strong>Card nou</strong> amestecă din nou activitățile pe grid. <strong>Repornește bifele</strong> păstrează același card, dar șterge bifele făcute.</p>
+
+          <h3>Experiențe</h3>
+          <p>În tabul „Experiențe" poți scrie ce ți s-a întâmplat frumos în teritoriu. Fiecare experiență poate fi trimisă mai departe (buton „Trimite") sau ștearsă individual.</p>
+
+          <h3>Salvarea datelor</h3>
+          <p>Cardul, bifele și experiențele se salvează automat, doar pe acest dispozitiv (nimic nu e trimis pe internet). Dacă ștergi datele browserului sau dezinstalezi aplicația, acestea se pierd.</p>
+
+          <h3>Instalare pe telefon</h3>
+          <p><strong>Android / Chrome:</strong> apasă butonul „Instalează aplicația" de mai sus (apare doar dacă browserul permite instalarea). Dacă nu apare: meniul ⋮ din browser → „Adaugă pe ecranul principal".</p>
+          <p><strong>iPhone / iPad (Safari):</strong> apasă butonul de distribuire (pătratul cu săgeată) din bara de jos, apoi „Adaugă pe ecranul principal".</p>
+          <p>Odată instalată, aplicația se deschide ca orice altă aplicație și funcționează complet <strong>offline</strong> — perfectă pentru teritorii fără semnal.</p>
+        </div>
+      </details>
+
+      <div class="setting-row setting-row--danger">
+        <button class="btn btn--danger-ghost" id="btn-clear-card" type="button">Șterge cardul și bifele</button>
+        <button class="btn btn--danger-ghost" id="btn-clear-experiences" type="button">Șterge experiențele salvate</button>
+      </div>
+
+      <p class="settings-footer">Bingo în predicare · Milwaukee 2026 · v<span id="app-version"></span> · funcționează offline, fără conexiune la internet.</p>
+    </div>
+  </div>
+</div>
+
+<div class="sr-live" id="sr-announcer" aria-live="polite"></div>
+
+<script src="js/app.js" defer></script>
+</body>
+</html>
