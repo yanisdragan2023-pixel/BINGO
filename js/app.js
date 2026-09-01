@@ -34,7 +34,6 @@ const ACTIVITIES = [
 ];
 const FREE_SPACE_TEXT = 'SPAȚIU LIBER';
 const CENTER_INDEX = 12; // poziția 12 (a treia din a treia linie) într-un grid 5x5 (0-24)
-const APP_VERSION = '1.1.0';
 
 /* ---------- 2. Chei LocalStorage ---------- */
 const LS = {
@@ -371,42 +370,10 @@ function renderExperiences() {
       renderExperiences();
     });
 
-    const share = document.createElement('button');
-    share.type = 'button';
-    share.className = 'experience-card__share';
-    share.textContent = 'Trimite';
-    share.addEventListener('click', () => shareExperience(exp));
-
-    const actions = document.createElement('div');
-    actions.className = 'experience-card__actions';
-    actions.appendChild(share);
-    actions.appendChild(del);
-
     li.appendChild(date);
     li.appendChild(text);
-    li.appendChild(actions);
+    li.appendChild(del);
     experienceList.appendChild(li);
-  }
-}
-
-async function shareExperience(exp) {
-  const shareText = `${exp.text}\n\n— din Bingo în predicare, Milwaukee 2026`;
-  if (navigator.share) {
-    try {
-      await navigator.share({ text: shareText, title: 'Experiență din predicare' });
-    } catch (e) { /* utilizatorul a anulat distribuirea — nu e o eroare */ }
-    return;
-  }
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    try {
-      await navigator.clipboard.writeText(shareText);
-      announce('Experiența a fost copiată în clipboard.');
-      alert('Experiența a fost copiată — o poți lipi oriunde vrei să o trimiți.');
-    } catch (e) {
-      alert('Nu am putut copia automat. Textul experienței:\n\n' + shareText);
-    }
-  } else {
-    alert('Textul experienței:\n\n' + shareText);
   }
 }
 
@@ -431,9 +398,7 @@ const settingsBackdrop = document.getElementById('settings-backdrop');
 const themeSegmented = document.getElementById('theme-segmented');
 const soundToggle = document.getElementById('sound-toggle');
 const announceToggle = document.getElementById('announce-toggle');
-const btnClearCard = document.getElementById('btn-clear-card');
-const btnClearExperiences = document.getElementById('btn-clear-experiences');
-const btnInstallApp = document.getElementById('btn-install-app');
+const btnClearData = document.getElementById('btn-clear-data');
 
 function openSettings() {
   settingsModal.hidden = false;
@@ -484,54 +449,22 @@ announceToggle.addEventListener('click', () => {
   syncSwitch(announceToggle, state.announce);
 });
 
-/* ---- Ștergere date (separat: cardul/bifele vs. experiențele) ---- */
-btnClearCard.addEventListener('click', () => {
-  if (!confirm('Ștergi cardul curent și toate bifele de pe el? Experiențele salvate nu sunt afectate.')) return;
+/* ---- Ștergere date ---- */
+btnClearData.addEventListener('click', () => {
+  if (!confirm('Aceasta șterge cardul curent, bifele și experiențele salvate pe acest dispozitiv. Continuă?')) return;
+  Object.values(LS).forEach(key => localStorage.removeItem(key));
+  state.experiences = [];
   generateNewCard();
   renderGrid();
-  announce('Cardul și bifele au fost șterse.');
-});
-
-btnClearExperiences.addEventListener('click', () => {
-  if (state.experiences.length === 0) { alert('Nu ai nicio experiență salvată.'); return; }
-  if (!confirm('Ștergi toate experiențele salvate? Această acțiune nu poate fi anulată.')) return;
-  state.experiences = [];
-  writeJSON(LS.experiences, state.experiences);
   renderExperiences();
-  announce('Experiențele au fost șterse.');
-});
-
-/* ---- Instalare aplicație (PWA) ---- */
-let deferredInstallPrompt = null;
-
-function isStandalone() {
-  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-}
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredInstallPrompt = e;
-  if (!isStandalone()) btnInstallApp.hidden = false;
-});
-
-btnInstallApp.addEventListener('click', async () => {
-  if (!deferredInstallPrompt) return;
-  deferredInstallPrompt.prompt();
-  await deferredInstallPrompt.userChoice;
-  deferredInstallPrompt = null;
-  btnInstallApp.hidden = true;
-});
-
-window.addEventListener('appinstalled', () => {
-  btnInstallApp.hidden = true;
-  deferredInstallPrompt = null;
+  closeSettings();
+  announce('Toate datele au fost șterse.');
 });
 
 /* ============================================================
    14. INIȚIALIZARE
    ============================================================ */
 function init() {
-  document.getElementById('app-version').textContent = APP_VERSION;
   syncSwitch(soundToggle, state.sound);
   syncSwitch(announceToggle, state.announce);
   applyTheme();

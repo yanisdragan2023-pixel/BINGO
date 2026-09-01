@@ -3,83 +3,6 @@
    Token system + components. Vanilla CSS, no build step.
    ============================================================ */
 
-/* ============================================================
-   FONTURI — autogăzduite local (fără CDN), pentru funcționare
-   100% offline chiar și la prima deschidere a aplicației.
-   Fiecare greutate are 2 fișiere: setul de bază (latin) și
-   setul extins (latin-ext, necesar pentru ă/â/î/ș/ț).
-   ============================================================ */
-@font-face{
-  font-family: "Work Sans"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url("../fonts/work-sans-latin-ext-400-normal.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF;
-}
-@font-face{
-  font-family: "Work Sans"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url("../fonts/work-sans-latin-400-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122;
-}
-@font-face{
-  font-family: "Work Sans"; font-style: normal; font-weight: 500; font-display: swap;
-  src: url("../fonts/work-sans-latin-ext-500-normal.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF;
-}
-@font-face{
-  font-family: "Work Sans"; font-style: normal; font-weight: 500; font-display: swap;
-  src: url("../fonts/work-sans-latin-500-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122;
-}
-@font-face{
-  font-family: "Work Sans"; font-style: normal; font-weight: 600; font-display: swap;
-  src: url("../fonts/work-sans-latin-ext-600-normal.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF;
-}
-@font-face{
-  font-family: "Work Sans"; font-style: normal; font-weight: 600; font-display: swap;
-  src: url("../fonts/work-sans-latin-600-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122;
-}
-@font-face{
-  font-family: "Work Sans"; font-style: normal; font-weight: 700; font-display: swap;
-  src: url("../fonts/work-sans-latin-ext-700-normal.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF;
-}
-@font-face{
-  font-family: "Work Sans"; font-style: normal; font-weight: 700; font-display: swap;
-  src: url("../fonts/work-sans-latin-700-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122;
-}
-@font-face{
-  font-family: "Fraunces"; font-style: normal; font-weight: 500; font-display: swap;
-  src: url("../fonts/fraunces-latin-ext-500-normal.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF;
-}
-@font-face{
-  font-family: "Fraunces"; font-style: normal; font-weight: 500; font-display: swap;
-  src: url("../fonts/fraunces-latin-500-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122;
-}
-@font-face{
-  font-family: "Fraunces"; font-style: normal; font-weight: 600; font-display: swap;
-  src: url("../fonts/fraunces-latin-ext-600-normal.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF;
-}
-@font-face{
-  font-family: "Fraunces"; font-style: normal; font-weight: 600; font-display: swap;
-  src: url("../fonts/fraunces-latin-600-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122;
-}
-@font-face{
-  font-family: "Fraunces"; font-style: normal; font-weight: 700; font-display: swap;
-  src: url("../fonts/fraunces-latin-ext-700-normal.woff2") format("woff2");
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1EFF;
-}
-@font-face{
-  font-family: "Fraunces"; font-style: normal; font-weight: 700; font-display: swap;
-  src: url("../fonts/fraunces-latin-700-normal.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2122;
-}
-
 :root{
   /* ---- Light theme tokens ---- */
   --bg: #EFF5F5;
@@ -410,6 +333,18 @@ main{
   box-shadow: 0 0 0 3px var(--accent-secondary), var(--shadow-md);
 }
 
+.bingo-tagline{
+  margin: .9rem .2rem 0;
+  text-align: center;
+  font-size: .85rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.bingo-tagline strong{
+  color: var(--accent-secondary);
+  font-family: var(--font-display);
+}
+
 .game-actions{
   display: flex;
   gap: .6rem;
@@ -481,13 +416,10 @@ main{
   margin-bottom: .3rem;
 }
 .experience-card__text{ margin: 0 0 .5rem; font-size: .92rem; white-space: pre-wrap; }
-.experience-card__actions{ display: flex; gap: 1rem; }
-.experience-card__delete, .experience-card__share{
-  border: 0; background: transparent;
+.experience-card__delete{
+  border: 0; background: transparent; color: var(--accent-marked);
   font-size: .78rem; font-weight: 600; cursor: pointer; padding: 0;
 }
-.experience-card__delete{ color: var(--accent-marked); }
-.experience-card__share{ color: var(--accent-secondary); }
 
 .experience-empty{ color: var(--ink-faint); font-size: .88rem; }
 .experience-empty[hidden]{ display: none; }
@@ -561,41 +493,6 @@ main{
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
 .setting-row--switch label{ font-size: .9rem; }
-
-.setting-row--danger{
-  display: flex;
-  flex-direction: column;
-  gap: .6rem;
-}
-.setting-row--danger .btn{ width: 100%; }
-
-#btn-install-app{ width: 100%; }
-
-.help-disclosure{
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: .2rem .9rem;
-  margin: 0 0 1.1rem;
-  background: var(--surface-tile);
-}
-.help-disclosure summary{
-  cursor: pointer;
-  font-weight: 600;
-  font-size: .92rem;
-  padding: .7rem 0;
-  list-style: none;
-}
-.help-disclosure summary::-webkit-details-marker{ display: none; }
-.help-disclosure__body{ padding-bottom: .9rem; font-size: .86rem; color: var(--ink-soft); }
-.help-disclosure__body h3{
-  font-family: var(--font-body);
-  font-size: .82rem;
-  font-weight: 700;
-  color: var(--ink);
-  margin: .9rem 0 .3rem;
-}
-.help-disclosure__body h3:first-child{ margin-top: 0; }
-.help-disclosure__body p{ margin: 0 0 .3rem; line-height: 1.5; }
 
 .segmented{ display: flex; background: var(--surface-tile); border-radius: 999px; padding: .2rem; gap: .2rem; }
 .segmented__btn{

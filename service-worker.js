@@ -3,7 +3,7 @@
    Strategie: "cache first, cu actualizare pe fundal" pentru fișierele
    aplicației, astfel încât jocul să funcționeze complet offline pe teren. */
 
-const CACHE_VERSION = 'bingo-predicare-v2';
+const CACHE_VERSION = 'bingo-predicare-v1';
 
 // Căi RELATIVE, ca aplicația să funcționeze corect și când e găzduită
 // într-un subfolder (ex: https://user.github.io/bingo-predicare/).
@@ -18,21 +18,6 @@ const APP_SHELL = [
   './icons/icon-512-maskable.png',
   './icons/apple-touch-icon.png',
   './icons/favicon.ico',
-  './icons/og-image.png',
-  './fonts/work-sans-latin-400-normal.woff2',
-  './fonts/work-sans-latin-ext-400-normal.woff2',
-  './fonts/work-sans-latin-500-normal.woff2',
-  './fonts/work-sans-latin-ext-500-normal.woff2',
-  './fonts/work-sans-latin-600-normal.woff2',
-  './fonts/work-sans-latin-ext-600-normal.woff2',
-  './fonts/work-sans-latin-700-normal.woff2',
-  './fonts/work-sans-latin-ext-700-normal.woff2',
-  './fonts/fraunces-latin-500-normal.woff2',
-  './fonts/fraunces-latin-ext-500-normal.woff2',
-  './fonts/fraunces-latin-600-normal.woff2',
-  './fonts/fraunces-latin-ext-600-normal.woff2',
-  './fonts/fraunces-latin-700-normal.woff2',
-  './fonts/fraunces-latin-ext-700-normal.woff2',
 ];
 
 self.addEventListener('install', (event) => {
